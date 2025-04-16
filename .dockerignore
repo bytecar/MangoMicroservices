@@ -1,0 +1,47 @@
+# .dockerignore file for the Mango project
+
+# Ignore version control directories
+.git/
+.gitignore
+
+# Ignore IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Ignore build outputs
+bin/
+obj/
+
+# Ignore temporary and log files
+*.tmp
+*.log
+
+# Ignore environment and secret files
+.env*
+*.pem
+*.key
+*.crt
+
+# Ignore documentation and local files
+docs/
+*.md
+README*
+.local/
+
+# Ignore Docker-related files
+Dockerfile*
+docker-compose*
+
+# Ignore specific project files
+**/*.csproj.user
+**/launchSettings.json
+
+# Ignore specific directories
+**/wwwroot/lib/
+**/wwwroot/images/
+
+# Ensure necessary files are included
+!**/wwwroot/css/
+!**/wwwroot/js/

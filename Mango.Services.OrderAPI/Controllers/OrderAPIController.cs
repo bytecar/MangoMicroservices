@@ -3,7 +3,6 @@ using Mango.Services.OrderAPI.Data;
 using Mango.Services.OrderAPI.Models;
 using Mango.Services.OrderAPI.Models.Dto;
 using Mango.Services.OrderAPI.Utility;
-using Mango.Services.ShoppingCartAPI.Service.IService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +10,7 @@ using Stripe.Checkout;
 using Stripe;
 using Mango.MessageBus;
 using Microsoft.EntityFrameworkCore;
+using Mango.Services.OrderAPI.Service.IService;
 
 namespace Mango.Services.OrderAPI.Controllers
 {

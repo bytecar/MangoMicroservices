@@ -1,6 +1,6 @@
 ﻿using Mango.Web.Models;
 using Mango.Web.Service.IService;
-using Newtonsoft.Json;
+using System.Text.Json;
 using System.Net;
 using System.Text;
 using static Mango.Web.Utility.SD;
@@ -66,7 +66,7 @@ namespace Mango.Web.Service
                 {
                     if (requestDto.Data != null)
                     {
-                        message.Content = new StringContent(JsonConvert.SerializeObject(requestDto.Data), Encoding.UTF8, "application/json");
+                        message.Content = new StringContent(JsonSerializer.Serialize(requestDto.Data), Encoding.UTF8, "application/json");
                     }
                 }
 
@@ -106,7 +106,7 @@ namespace Mango.Web.Service
                         return new() { IsSuccess = false, Message = "Internal Server Error" };
                     default:
                         var apiContent = await apiResponse.Content.ReadAsStringAsync();
-                        var apiResponseDto = JsonConvert.DeserializeObject<ResponseDto>(apiContent);
+                        var apiResponseDto = JsonSerializer.Deserialize<ResponseDto>(apiContent);
                         return apiResponseDto;
                 }
             }catch (Exception ex)

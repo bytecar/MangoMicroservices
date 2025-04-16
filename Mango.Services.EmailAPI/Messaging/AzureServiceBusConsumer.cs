@@ -2,8 +2,8 @@
 using Mango.Services.EmailAPI.Message;
 using Mango.Services.EmailAPI.Models.Dto;
 using Mango.Services.EmailAPI.Services;
-using Newtonsoft.Json;
 using System.Text;
+using System.Text.Json;
 
 namespace Mango.Services.EmailAPI.Messaging
 {
@@ -24,9 +24,8 @@ namespace Mango.Services.EmailAPI.Messaging
         {
             _emailService=emailService;
             _configuration = configuration;
-
+            
             serviceBusConnectionString = _configuration.GetValue<string>("ServiceBusConnectionString");
-
             emailCartQueue = _configuration.GetValue<string>("TopicAndQueueNames:EmailShoppingCartQueue");
             registerUserQueue = _configuration.GetValue<string>("TopicAndQueueNames:RegisterUserQueue");
             orderCreated_Topic = _configuration.GetValue<string>("TopicAndQueueNames:OrderCreatedTopic");
@@ -73,7 +72,7 @@ namespace Mango.Services.EmailAPI.Messaging
             var message = args.Message;
             var body = Encoding.UTF8.GetString(message.Body);
 
-            CartDto objMessage = JsonConvert.DeserializeObject<CartDto>(body);
+            CartDto objMessage = JsonSerializer.Deserialize<CartDto>(body);
             try
             {
                 //TODO - try to log email
@@ -92,7 +91,7 @@ namespace Mango.Services.EmailAPI.Messaging
             var message = args.Message;
             var body = Encoding.UTF8.GetString(message.Body);
 
-            RewardsMessage objMessage = JsonConvert.DeserializeObject<RewardsMessage>(body);
+            RewardsMessage objMessage = JsonSerializer.Deserialize<RewardsMessage>(body);
             try
             {
                 //TODO - try to log email
@@ -111,7 +110,7 @@ namespace Mango.Services.EmailAPI.Messaging
             var message = args.Message;
             var body = Encoding.UTF8.GetString(message.Body);
 
-            string email = JsonConvert.DeserializeObject<string>(body);
+            string email = JsonSerializer.Deserialize<string>(body);
             try
             {
                 //TODO - try to log email

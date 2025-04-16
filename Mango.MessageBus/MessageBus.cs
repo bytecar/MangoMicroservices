@@ -1,10 +1,6 @@
 ﻿using Azure.Messaging.ServiceBus;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Text.Json;
 
 namespace Mango.MessageBus
 {
@@ -19,7 +15,7 @@ namespace Mango.MessageBus
 
             ServiceBusSender sender = client.CreateSender(topic_queue_Name);
 
-            var jsonMessage = JsonConvert.SerializeObject(message);
+            var jsonMessage = JsonSerializer.Serialize(message);
             ServiceBusMessage finalMessage = new ServiceBusMessage(Encoding
                 .UTF8.GetBytes(jsonMessage))
             {

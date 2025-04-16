@@ -1,7 +1,7 @@
 ﻿using Azure.Messaging.ServiceBus;
 using Mango.Services.RewardAPI.Message;
 using Mango.Services.RewardAPI.Services;
-using Newtonsoft.Json;
+using System.Text.Json;
 using System.Text;
 
 namespace Mango.Services.RewardAPI.Messaging
@@ -53,7 +53,7 @@ namespace Mango.Services.RewardAPI.Messaging
             var message = args.Message;
             var body = Encoding.UTF8.GetString(message.Body);
 
-            RewardsMessage objMessage = JsonConvert.DeserializeObject<RewardsMessage>(body);
+            RewardsMessage objMessage = JsonSerializer.Deserialize<RewardsMessage>(body);
             try
             {
                 //TODO - try to log email

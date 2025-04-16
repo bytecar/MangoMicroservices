@@ -1,7 +1,7 @@
 ﻿using Mango.Web.Models;
 using Mango.Web.Service.IService;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+using System.Text.Json;
 using System.Collections.Generic;
 
 namespace Mango.Web.Controllers
@@ -23,7 +23,7 @@ namespace Mango.Web.Controllers
 
             if (response != null && response.IsSuccess)
             {
-                list= JsonConvert.DeserializeObject<List<ProductDto>>(Convert.ToString(response.Result));
+                list= JsonSerializer.Deserialize<List<ProductDto>>(Convert.ToString(response.Result));
             }
             else
             {
@@ -64,7 +64,7 @@ namespace Mango.Web.Controllers
 
 			if (response != null && response.IsSuccess)
 			{
-                ProductDto? model= JsonConvert.DeserializeObject<ProductDto>(Convert.ToString(response.Result));
+                ProductDto? model= JsonSerializer.Deserialize<ProductDto>(Convert.ToString(response.Result));
                 return View(model);
 			}
             else
@@ -97,7 +97,7 @@ namespace Mango.Web.Controllers
 
             if (response != null && response.IsSuccess)
             {
-                ProductDto? model = JsonConvert.DeserializeObject<ProductDto>(Convert.ToString(response.Result));
+                ProductDto? model = JsonSerializer.Deserialize<ProductDto>(Convert.ToString(response.Result));
                 return View(model);
             }
             else

@@ -1,0 +1,80 @@
+services:
+  mango_gateway:
+    build:
+      context: .
+      dockerfile: Mango.GatewaySolution/Dockerfile
+    restart: unless-stopped
+    init: true
+    ports:
+      - "8080:80"
+    networks:
+      - mango_network
+  mango_authapi:
+    build:
+      context: .
+      dockerfile: Mango.Services.AuthAPI/Dockerfile
+    restart: unless-stopped
+    init: true
+    networks:
+      - mango_network
+  mango_orderapi:
+    build:
+      context: .
+      dockerfile: Mango.Services.OrderAPI/Dockerfile
+    restart: unless-stopped
+    init: true
+    networks:
+      - mango_network
+  mango_couponapi:
+    build:
+      context: .
+      dockerfile: Mango.Services.CouponAPI/Dockerfile
+    restart: unless-stopped
+    init: true
+    networks:
+      - mango_network
+  mango_emailapi:
+    build:
+      context: .
+      dockerfile: Mango.Services.EmailAPI/Dockerfile
+    restart: unless-stopped
+    init: true
+    networks:
+      - mango_network 
+  mango_productapi:
+    build:
+      context: .
+      dockerfile: Mango.Services.ProductAPI/Dockerfile
+    restart: unless-stopped
+    init: true
+    networks:
+      - mango_network
+  mango_rewardapi:
+    build:
+      context: .
+      dockerfile: Mango.Services.RewardAPI/Dockerfile
+    restart: unless-stopped
+    init: true
+    networks:
+      - mango_network
+  mango_shoppingcartapi:
+    build:
+      context: .
+      dockerfile: Mango.Services.ShoppingCartAPI/Dockerfile
+    restart: unless-stopped
+    init: true
+    networks:
+      - mango_network
+  mango_web:
+    build:
+      context: .
+      dockerfile: Mango.Web/Dockerfile
+    restart: unless-stopped
+    init: true
+    ports:
+      - "8081:80"
+    networks:
+      - mango_network
+networks:
+  mango_network:
+    driver: bridge

@@ -1,7 +1,7 @@
 ﻿using Mango.Web.Models;
 using Mango.Web.Service.IService;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+using System.Text.Json;
 using System.Collections.Generic;
 
 namespace Mango.Web.Controllers
@@ -23,7 +23,7 @@ namespace Mango.Web.Controllers
 
             if (response != null && response.IsSuccess)
             {
-                list= JsonConvert.DeserializeObject<List<CouponDto>>(Convert.ToString(response.Result));
+                list= JsonSerializer.Deserialize<List<CouponDto>>(Convert.ToString(response.Result));
             }
             else
             {
@@ -64,7 +64,7 @@ namespace Mango.Web.Controllers
 
 			if (response != null && response.IsSuccess)
 			{
-				CouponDto? model= JsonConvert.DeserializeObject<CouponDto>(Convert.ToString(response.Result));
+				CouponDto? model= JsonSerializer.Deserialize<CouponDto>(Convert.ToString(response.Result));
                 return View(model);
 			}
             else

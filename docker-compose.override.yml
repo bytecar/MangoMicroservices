@@ -1,0 +1,14 @@
+
+services:
+  mango_shoppingcartapi:
+    labels:
+      com.microsoft.visual-studio.project-name: "Mango.Services.ShoppingCartAPI"
+  mango_orderapi:
+    labels:
+      com.microsoft.visual-studio.project-name: "Mango.Services.OrderAPI"
+  mango_couponapi:
+    labels:
+      com.microsoft.visual-studio.project-name: "Mango.Services.CouponAPI"
+  mango_authapi:
+    labels:
+      com.microsoft.visual-studio.project-name: "Mango.Services.AuthAPI"

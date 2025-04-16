@@ -4,7 +4,7 @@ using Mango.Web.Service.IService;
 using Mango.Web.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+using System.Text.Json;
 using System.IdentityModel.Tokens.Jwt;
 
 namespace Mango.Web.Controllers
@@ -41,7 +41,7 @@ namespace Mango.Web.Controllers
             cart.CartHeader.Name = cartDto.CartHeader.Name;
 
             var response = await _orderService.CreateOrder(cart);
-            OrderHeaderDto orderHeaderDto = JsonConvert.DeserializeObject<OrderHeaderDto>(Convert.ToString(response.Result));
+            OrderHeaderDto orderHeaderDto = JsonSerializer.Deserialize<OrderHeaderDto>(Convert.ToString(response.Result));
 
             if (response != null && response.IsSuccess)
             {
@@ -57,9 +57,9 @@ namespace Mango.Web.Controllers
                 };
 
                 var stripeResponse = await _orderService.CreateStripeSession(stripeRequestDto);
-                StripeRequestDto stripeResponseResult = JsonConvert.DeserializeObject<StripeRequestDto>
+                StripeRequestDto stripeResponseResult = JsonSerializer.Deserialize<StripeRequestDto>
                                             (Convert.ToString(stripeResponse.Result));
-                Response.Headers.Add("Location", stripeResponseResult.StripeSessionUrl);
+                Response.Headers.Append("Location", stripeResponseResult.StripeSessionUrl);
                 return new StatusCodeResult(303);
 
 
@@ -74,7 +74,7 @@ namespace Mango.Web.Controllers
             if (response != null & response.IsSuccess)
             {
 
-                OrderHeaderDto orderHeader = JsonConvert.DeserializeObject<OrderHeaderDto>(Convert.ToString(response.Result));
+                OrderHeaderDto orderHeader = JsonSerializer.Deserialize<OrderHeaderDto>(Convert.ToString(response.Result));
                 if (orderHeader.Status == SD.Status_Approved)
                 {
                     return View(orderId);
@@ -143,7 +143,7 @@ namespace Mango.Web.Controllers
             ResponseDto? response = await _cartService.GetCartByUserIdAsnyc(userId);
             if(response!=null & response.IsSuccess)
             {
-                CartDto cartDto = JsonConvert.DeserializeObject<CartDto>(Convert.ToString(response.Result));
+                CartDto cartDto = JsonSerializer.Deserialize<CartDto>(Convert.ToString(response.Result));
                 return cartDto;
             }
             return new CartDto();
